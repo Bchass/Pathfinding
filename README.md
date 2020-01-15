@@ -1,2 +1,3 @@
 # Pathfinding
-A pathfinding visualizer written in Javascript and React
+
+### A basic pathfinding visualizer for Dijkstra’s algorithm
