@@ -1,2 +1,3 @@
 # Pathfinding
-Will be updated
+
+ ### Basic visualization of Dijkstra’s algorithm
