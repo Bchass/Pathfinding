@@ -4,38 +4,67 @@ import Node from './Node/Node';
 import './PathfindingVisualizer.css'
 
 export default class PathfindingVisualizer extends Component{
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
-            nodes: [],
+            grid: [],
         };
     }
 
-
-grid() {
-    const nodes = [];
-    for (let rows = 0; rows < 15; rows++){
-        const current = [];
-        for(let column = 0; column < 50; column++){
-            current.push([]);
-        }
-        nodes.push(current);
+    component(){
+        const grid = baseGrid();
+        this.setState({grid});
     }
-    this.setState({nodes})
-}
+    // render grid
+    render() {
+        const{grid} = this.state;
+        return(
+            <>
+            <button>
+                Dijkstra's Algorithm
+            </button>
+            <div className="grid">
+                {grid.map((rows, rowsdx) => {
+                    return(
+                        <div key={rowsdx}>
+                            {rows.map((node, nodedx)=>{
+                                const{rows,columns} = node;
+                                return(
+                                    <Node
+                                    key={nodedx}
+                                    columns = {columns}
 
-render(){
-    const {nodes} = this.state;
-    console.log(nodes)
-
-    return (
-        <div className="grid">
-            {nodes.map((row, rowID) => {
-                return <div>
-                    {row.map((node, nodeID) => <Node></Node>)}
-                    </div>
+                                    rows={rows}></Node>
+                                );
+                            })}
+                            </div>
+                    );
+                    
                 })}
-        </div>
-    );
+            </div>
+            </>
+        );
 }
+    
+}
+
+// display grid layout
+const baseGrid = () => {
+    const grid = [];
+    for(let rows = 0; rows < 20; rows++){
+        const current = [];
+        for(let columns = 0; columns < 50; columns++){
+            current.push(node(columns,rows));
+        }
+        grid.push(current);
+    }
+    return grid;
+}
+
+// creates node
+const node = (columns,rows) =>{
+    return{
+        columns,
+        rows
+    }
 }
