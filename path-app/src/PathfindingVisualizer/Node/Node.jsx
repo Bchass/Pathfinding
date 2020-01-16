@@ -4,12 +4,17 @@ import './Node.css';
 
 
 export default class Node extends Component{
-    constructor(props){
-        super(props);
-        this.state = {};
-    }
 
     render(){
-        return <div className="node"></div>;
+        const{
+            columns,
+            rows,
+        } = this.props;
+
+        return(
+            <div
+            id={`node-${rows}-${columns}`}
+            ></div>
+        )
     }
 }
