@@ -1,3 +1,4 @@
+----
 - A basic visualization of Dijkstra’s algorithm
   - Other algorithms like A* will be added in the future
 
