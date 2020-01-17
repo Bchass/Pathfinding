@@ -3,6 +3,11 @@ import Node from './Node/Node';
 
 import './PathfindingVisualizer.css'
 
+const start_node_rows = 10;
+const start_node_columns = 15;
+const finish_node_rows = 10;
+const finish_node_columns = 35;
+
 export default class PathfindingVisualizer extends Component{
     constructor(){
         super();
@@ -10,8 +15,8 @@ export default class PathfindingVisualizer extends Component{
             grid: [],
         };
     }
-
-    component(){
+    // mount grid
+    componentDidMount(){
         const grid = baseGrid();
         this.setState({grid});
     }
@@ -24,15 +29,18 @@ export default class PathfindingVisualizer extends Component{
                 Dijkstra's Algorithm
             </button>
             <div className="grid">
-                {grid.map((rows, rowsdx) => {
+                {grid.map((rows, rowsIdx) => {
                     return(
-                        <div key={rowsdx}>
-                            {rows.map((node, nodedx)=>{
-                                const{rows,columns} = node;
+                        <div key={rowsIdx}>
+                            {rows.map((node, nodeIdx)=>{
+                                const{rows,columns,Finish,Start,Wall} = node;
                                 return(
                                     <Node
-                                    key={nodedx}
+                                    key={nodeIdx}
                                     columns = {columns}
+                                    Finish = {Finish}
+                                    Start = {Start}
+                                    Wall = {Wall}
 
                                     rows={rows}></Node>
                                 );
@@ -51,9 +59,9 @@ export default class PathfindingVisualizer extends Component{
 // display grid layout
 const baseGrid = () => {
     const grid = [];
-    for(let rows = 0; rows < 20; rows++){
+    for(let rows = 0; rows < 25; rows++){
         const current = [];
-        for(let columns = 0; columns < 50; columns++){
+        for(let columns = 0; columns < 60; columns++){
             current.push(node(columns,rows));
         }
         grid.push(current);
@@ -65,6 +73,12 @@ const baseGrid = () => {
 const node = (columns,rows) =>{
     return{
         columns,
-        rows
+        rows,
+        Start: rows === start_node_rows && columns === start_node_columns,
+        Finish: rows === finish_node_rows && columns === finish_node_columns,
+        distance: Infinity,
+        Vistied: false,
+        Wall: false,
+        Previous: null,
     }
 }
