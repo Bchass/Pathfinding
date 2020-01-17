@@ -1,6 +1,14 @@
 .node {
     width: 25px;
     height: 25px;
-    outline: 1px solid rgb(175, 216, 248);
+    outline: 1px solid rgb(102, 94, 94);
     display: inline-block;
+  }
+
+  .node-start{
+    background-color: forestgreen;
+  }
+
+  .node-finish{
+    background-color: tomato;
   }
