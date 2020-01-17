@@ -67,7 +67,7 @@ const baseGrid = () => {
     const grid = [];
     for(let rows = 0; rows < 25; rows++){
         const current = [];
-        for(let columns = 0; columns < 60; columns++){
+        for(let columns = 0; columns < 55; columns++){
             current.push(node(columns,rows));
         }
         grid.push(current);
