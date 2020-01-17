@@ -30,13 +30,23 @@ function sort(unvisited){
 }
 
 function update(node, grid){
-    const unvisited = all_Nodes(node,grid)
+    const unvisited = unvisited_neighbors(node,grid)
     for(const neighbor of unvisited){
         neighbor.distance = node.distance +1;
         neighbor.previous = node;
     }
 }
 
+// checks neighbors
+function unvisited_neighbors(node, grid){
+    const neighbors = [];
+    const {columns, rows} = node;
+    if(rows > 0)neighbors.push(grid[rows-1][columns]);
+    if(rows < grid.length - 1)neighbors.push(grid[rows+1][columns]);
+    if(columns > 0)neighbors.push(grid[rows[columns]- 1]);
+    if(columns < grid[0].length - 1)neighbors.push(grid[rows[columns + 1]]);
+    return neighbors.filter(neighbors => !neighbors.visted);
+}
 // gather all the nodes
 function all_Nodes(grid){
     const nodes = [];
