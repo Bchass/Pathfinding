@@ -1,7 +1,3 @@
-----
-- A basic visualization of Dijkstra’s algorithm
-  - Other algorithms like A* will be added in the future
-
 
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
