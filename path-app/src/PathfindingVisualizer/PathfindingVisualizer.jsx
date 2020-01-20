@@ -16,6 +16,12 @@ export default class PathfindingVisualizer extends Component{
         this.state = {
             grid: [],
         };
+        //this.baseGrid = this.state
+    }
+
+    // reload the page for reset
+    reset = () =>{
+        window.location.reload(false);
     }
     // mount grid
     componentDidMount(){
@@ -55,6 +61,8 @@ export default class PathfindingVisualizer extends Component{
         const shortest = shortestpath(finish_node);
         this.animate(visited, shortest);
     }
+
+  
     // render grid
     render() {
         const{grid} = this.state;
@@ -64,9 +72,7 @@ export default class PathfindingVisualizer extends Component{
                 Dijkstra's Algorithm
             </button>
             <>
-            <button>
-                Reset
-            </button>
+            <button onClick={this.reset}>Reset</button>
             <div className="grid">
                 {grid.map((rows, rowsIdx) => {
                     return(
