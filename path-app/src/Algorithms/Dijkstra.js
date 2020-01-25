@@ -30,7 +30,7 @@ function sort(unvisited){
 }
 
 function update_unvisited(node, grid){
-    const unvisited_n = unvisited_neighbors(node,grid)
+    const unvisited_n = unvisited_neighbors(node,grid);
     for(const neighbor of unvisited_n){
         neighbor.distance = node.distance +1;
         neighbor.previous_node = node;
