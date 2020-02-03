@@ -24,6 +24,10 @@
   animation-play-state: running;
 }
 
+.node-Wall{
+  background-color: black;
+}
+
 @keyframes Animation {
   0% {
     transform: scale(0.3);
