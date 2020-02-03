@@ -15,6 +15,7 @@ export default class PathfindingVisualizer extends Component{
         super();
         this.state = {
             grid: [],
+            mousePressed: false,
         };
         //this.baseGrid = this.state
     }
@@ -27,6 +28,24 @@ export default class PathfindingVisualizer extends Component{
     componentDidMount(){
         const grid = baseGrid();
         this.setState({grid});
+    }
+
+    // TODO: Fix bug with right click 
+    // place a node when mouse is pressed
+    MouseDown(rows, columns){
+        const newGrid = startNewGrid(this.state.grid,rows,columns);
+        this.setState({grid: newGrid, mousePressed: true});
+
+    }
+
+    MouseEnter(rows, columns){
+        if(!this.state.mousePressed) return;
+        const newGrid = startNewGrid(this.state.grid,rows,columns);
+        this.setState({grid: newGrid});
+    }
+
+    MouseUp(){
+        this.setState({mousePressed: false});
     }
 
     animate(visited,shortest){
@@ -65,7 +84,7 @@ export default class PathfindingVisualizer extends Component{
   
     // render grid
     render() {
-        const{grid} = this.state;
+        const{grid, mousePressed} = this.state;
         return(
             <>
             <button onClick={() => this.visual()}>
@@ -86,7 +105,10 @@ export default class PathfindingVisualizer extends Component{
                                     Finish = {Finish}
                                     Start = {Start}
                                     Wall = {Wall}
-
+                                    mousePressed = {mousePressed}
+                                    onMouseDown = {(rows, columns) => this.MouseDown(rows, columns)}
+                                    onMouseEnter = {(rows, columns) => this.MouseEnter(rows,columns)}
+                                    onMouseUp = {() =>  this.MouseUp()}
                                     rows={rows}></Node>
                                 );
                             })}
@@ -108,7 +130,7 @@ const baseGrid = () => {
     for(let rows = 0; rows < 25; rows++){
         const current = [];
         for(let columns = 0; columns < 55; columns++){
-            current.push(node(columns,rows));
+            current.push(cnode(columns,rows));
         }
         grid.push(current);
     }
@@ -116,7 +138,7 @@ const baseGrid = () => {
 }
 
 // creates node
-const node = (columns,rows) =>{
+const cnode = (columns,rows) =>{
     return{
         columns,
         rows,
@@ -127,4 +149,17 @@ const node = (columns,rows) =>{
         Wall: false,
         previous_node: null,
     }
+}
+
+// create new nodes for wall
+const startNewGrid = (grid, rows, columns) => {
+    const newGrid = grid.slice();
+    const node = newGrid[rows][columns];
+    const newnode = {
+        ...node,
+        Wall: !node.Wall,
+    };
+    newGrid[rows][columns] = newnode;
+    return newGrid;
+    
 }
