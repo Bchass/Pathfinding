@@ -10,7 +10,7 @@ export function Dijkstra(grid, start_node, finish_node){
         const closest = unvisited.shift();
 
         // skip wall
-        if(closest.wall) 
+        if(closest.Wall) 
         continue;
         // if a node is infinity, then shortest path has been found
         if(closest.distance === Infinity)
