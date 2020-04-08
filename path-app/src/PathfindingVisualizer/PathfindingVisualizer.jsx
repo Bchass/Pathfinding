@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Node from './Node/Node';
 
-import './PathfindingVisualizer.css'
+import './PathfindingVisualizer.css';
 import { Dijkstra, shortestpath } from '../Algorithms/Dijkstra';
 
 // start & finish points
@@ -10,14 +10,37 @@ const start_node_columns = 15;
 const finish_node_rows = 10;
 const finish_node_columns = 35;
 
+// measure in ms -> secs
+const ms = require('pretty-ms')
+
+//var prettySeconds = require('pretty-seconds');
+
 export default class PathfindingVisualizer extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             grid: [],
             mousePressed: false,
+            Time: 0
         };
-        //this.baseGrid = this.state
+    }
+    // TODO: Timer stops at finish node
+    // Record time of algorithm
+    tick(){
+        this.interval = setInterval(() =>{
+            this.setState(prevState => ({
+                Time: prevState.Time + 1
+            }));
+        }, 750);
+    }
+    // Mount timer
+    componentWillMount(){
+        clearInterval(this.interval);
+    }
+
+    stopTimer(){
+        this.setState({isVistied: false})
+        clearInterval(this.PathfindingVisualizer)
     }
 
     // reload the page for reset
@@ -78,10 +101,11 @@ export default class PathfindingVisualizer extends Component{
         const finish_node = grid[finish_node_rows][finish_node_columns];
         const visited = Dijkstra(grid,start_node,finish_node);
         const shortest = shortestpath(finish_node);
-        this.animate(visited, shortest);
+        const Time = this.tick(finish_node);
+        this.animate(visited, shortest, Time);
     }
 
-  
+    // TODO: create method for aStar
     // render grid
     render() {
         const{grid, mousePressed} = this.state;
@@ -92,7 +116,12 @@ export default class PathfindingVisualizer extends Component{
             </button>
             <>
             <button onClick={this.reset}>Reset</button>
+            
+            <button onClick={() => this.visual1()}>
+                aStar Algorithm
+            </button>
             <div className="grid">
+            Time: {ms(this.state.Time)}
                 {grid.map((rows, rowsIdx) => {
                     return(
                         <div key={rowsIdx}>
