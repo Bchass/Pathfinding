@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Node from './Node/Node';
-
 import './PathfindingVisualizer.css';
 import { Dijkstra, shortestpath } from '../Algorithms/Dijkstra';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 // start & finish points
 const start_node_rows = 10;
@@ -11,10 +12,25 @@ const finish_node_rows = 10;
 const finish_node_columns = 35;
 
 // measure in ms -> secs
-const ms = require('pretty-ms')
+const ms = require('pretty-ms');
 
-//var prettySeconds = require('pretty-seconds');
+// button styling
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+  }));
 
+// button class
+export class ContainedButtons {
+    constructor() {
+        const classes = useStyles();
+    }
+}
+
+// main class
 export default class PathfindingVisualizer extends Component{
     constructor(props){
         super(props);
@@ -111,15 +127,15 @@ export default class PathfindingVisualizer extends Component{
         const{grid, mousePressed} = this.state;
         return(
             <>
-            <button onClick={() => this.visual()}>
+            <Button size="small" variant="contained" color="primary"onClick={() => this.visual()}>
                 Dijkstra's Algorithm
-            </button>
+            </Button>
             <>
-            <button onClick={this.reset}>Reset</button>
-            
-            <button onClick={() => this.visual1()}>
+            <Button size="small" variant="contained" color="secondary" onClick={this.reset}>Reset
+            </Button>
+            <Button size="small" variant="contained" onClick={() => this.visual1()}>
                 aStar Algorithm
-            </button>
+            </Button>
             <div className="grid">
             Time: {ms(this.state.Time)}
                 {grid.map((rows, rowsIdx) => {
