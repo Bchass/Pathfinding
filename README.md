@@ -6,5 +6,5 @@ This project contains a basic visual for Dijkstra's algorithm using JavaScript a
 ----
 ## Development: 
 - React: https://reactjs.org/
-- Due to a bug with ```react-scripts``` the project was generated with ```npx create-react-app project-name --scripts-version 3.2.0```
+- Due to a bug with ```react-scripts``` the project was generated with ```npx create-react-app project-name --scripts-version 3.2.0``` (This bug since has been fixed)
 - Bug: https://github.com/facebook/create-react-app/issues/8153
